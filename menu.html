@@ -389,15 +389,81 @@
     function interpolate(start, end, t) {
       return start + (end - start) * t;
     }
+    function unban() {
+      function eraseCookie(name) {document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';}
+      eraseCookie("___Secure-3PSIDMC")
+      localStorage.removeItem("bloxd-trafficCode_cache")
+      sessionStorage.removeItem("bis_data")
+      location.reload();
+    };
+
     setInterval(()=>{
       var neded_margin = !document.querySelector("#nav-toggle").checked ? 280 : 100
       document.querySelector(".cheatmenu").style.marginLeft=`${interpolate(Number(document.querySelector(".cheatmenu").style.marginLeft.replace("px","")), neded_margin, 0.1)}px`
       const windowWidth = window.innerWidth; // Ширина окна
       const windowHeight = window.innerHeight; // Высота окна
       var info = JSON.parse(document.body.getAttribute("interSettings"))
-      document.querySelector(".screen-so-small").style.display = (windowWidth<=1175 || windowHeight<=600) ? "block" : "none"
+      // document.querySelector(".screen-so-small").style.display = (windowWidth<=1175 || windowHeight<=600) ? "block" : "none"
       document.querySelector("#nav-footer-titlebox").innerHTML=`<a id="nav-footer-title">${info.name}</a><span id="nav-footer-subtitle"></span`
     },10)
+  </script>
+  <script>
+    function upditem(item,param) {
+      try {
+        if (localStorage.eclient!==undefined) {
+          var Jsonx = JSON.parse(localStorage.eclient)
+          Jsonx[item]=param;
+          localStorage.eclient=JSON.stringify(Jsonx)
+        }
+        else {
+          localStorage.eclient=JSON.stringify({})
+          upditem(item,param)
+        }
+      }catch{localStorage.eclient=JSON.stringify({})}
+    }
+    function getitem(item) {
+      try {
+        if (localStorage.eclient!==undefined) {
+          var Jsonx = JSON.parse(localStorage.eclient)
+          return Jsonx[item]
+        }
+        else {
+          return null
+        }
+      }catch{localStorage.eclient=JSON.stringify({})}
+      return null
+    }
+    class CheatBtnClass extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.innerHTML=`<div class="cheatbtn"><p>${this.getAttribute('text')}</p></div>`;
+
+      }
+
+      disconnectedCallback() {
+        // браузер вызывает этот метод при удалении элемента из документа
+        // (может вызываться много раз, если элемент многократно добавляется/удаляется)
+      }
+
+      static get observedAttributes() {
+        return [/* массив имён атрибутов для отслеживания их изменений */];
+      }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        // вызывается при изменении одного из перечисленных выше атрибутов
+      }
+
+      adoptedCallback() {
+        // вызывается, когда элемент перемещается в новый документ
+        // (происходит в document.adoptNode, используется очень редко)
+      }
+
+      // у элемента могут быть ещё другие методы и свойства
+    }
+    customElements.define("cheat-button", CheatBtnClass);
   </script>
 </head>
 <body interSettings='{"name":"UserName"}'>
@@ -431,9 +497,46 @@
   </div>
 </div>
 <!-- partial -->
-
+<style>
+  .cheatbtn {
+    user-select: none;
+    transition: all ease-in-out 0.1s;
+    text-align: center;
+    color:white;
+    background-color: #2c235c;
+    max-width: 200px;
+    max-height: 100px;
+    min-height: 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  .cheatbtn:hover {
+    background-color: #382980;
+    transform: scale(105%);
+  }
+  .menue h1 {
+    position: absolute;
+    top:0px;
+  }
+  .menue {
+    width: 100%;
+    height: 100%;
+  }
+  .contente {
+    margin-top: 100px;
+    width: 100%;
+    height: 100%;
+  }
+</style>
 <div class="cheatmenu">
-  <h1>Players</h1>
+  <div class="misc menue">
+    <h1>Misc</h1>
+    <div class="contente">
+      <cheat-button onclick="unban()" text="Unban"></cheat-button>
+      <cheat-button onclick="upditem('isCreative',getitem('isCreative')===null ||getitem('isCreative')===false ? true : false)" text="On/Off Fly"></cheat-button>
+      <cheat-button onclick="alert(1)" text="Unban"></cheat-button>
+    </div>
+  </div>
 </div>
 
 </body>
