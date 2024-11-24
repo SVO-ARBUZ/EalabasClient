@@ -393,7 +393,7 @@
       document.querySelector(".cheatmenu").style.marginLeft=`${interpolate(Number(document.querySelector(".cheatmenu").style.marginLeft.replace("px","")), neded_margin, 0.1)}px`
       const windowWidth = window.innerWidth; // Ширина окна
       const windowHeight = window.innerHeight; // Высота окна
-      document.querySelector(".screen-so-small").style.display = (windowWidth<1175 || windowHeight<600) ? "block" : "none"
+      document.querySelector(".screen-so-small").style.display = (windowWidth<=1175 || windowHeight<=600) ? "block" : "none"
     },10)
   </script>
 </head>
