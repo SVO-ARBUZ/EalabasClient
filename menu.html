@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Navbar Pure CSS</title>
+  <title>EalabasClient</title>
   <style>
     :root {
       --background: #373737;
@@ -368,6 +368,21 @@
       background-color: #D62929;
     }
   </style>
+  <style>
+    .screen-so-small {
+      position: absolute;
+      z-index: 99999;
+      background: #06050d;
+      width: 100%;
+      height: 100%;
+
+    }
+    .screen-so-small h1 {
+      margin-top: 25%;
+      text-align: center;
+      color: #f5f6fa;
+    }
+  </style>
   <script src="https://kit.fontawesome.com/42eb2d1675.js" crossorigin="anonymous"></script>
   <script>
     function interpolate(start, end, t) {
@@ -376,14 +391,21 @@
     setInterval(()=>{
       var neded_margin = !document.querySelector("#nav-toggle").checked ? 280 : 100
       document.querySelector(".cheatmenu").style.marginLeft=`${interpolate(Number(document.querySelector(".cheatmenu").style.marginLeft.replace("px","")), neded_margin, 0.1)}px`
+      const windowWidth = window.innerWidth; // Ширина окна
+      const windowHeight = window.innerHeight; // Высота окна
+      document.querySelector(".screen-so-small").style.display = (windowWidth<1175 || windowHeight<600) ? "block" : "none"
     },10)
   </script>
 </head>
 <body>
+<div class="screen-so-small" style="display: none">
+  <h1>Экранчик слишком маленький бро</h1>
+</div>
+
 <!-- partial:index.partial.html -->
 <div id="nav-bar">
   <input id="nav-toggle" type="checkbox"/>
-  <div id="nav-header"><a id="nav-title" href="#"><i class="fab fa-slack"></i>Ealabas Client</a>
+  <div id="nav-header"><a id="nav-title" href="#"><i class="fab fa-slack"></i> Ealabas Client</a>
     <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
     <hr/>
   </div>
