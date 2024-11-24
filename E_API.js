@@ -1,5 +1,4 @@
-window.initializeAPI = function s(){
-	class E_API {
+class E_API {
 
 		  constructor() {
 			  this.AlrFreezed=false
@@ -19,7 +18,18 @@ window.initializeAPI = function s(){
 			unfreeze() {
 				if (this.AlrFreezed) {EalabasFixed.ents.setPosition=EalabasFixed.ents.setPosition_o}
 			}
+			
+			getPos() {
+				return EalabasFixed.ents.getPosition(1);
+			}
+			setPos(pos) {
+				if (this.AlrFreezed) {
+					EalabasFixed.ents.setPosition_o(1,pos[0],pos[1],pos[2])
+				}
+				else {
+					EalabasFixed.ents.setPosition(1,pos[0],pos[1],pos[2])
+				}
+			}
 		
 		}
-	window.EalabasAPI=new E_API()
-}
+window.EalabasAPI=new E_API()
