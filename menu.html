@@ -385,9 +385,6 @@
   </style>
   <script src="https://kit.fontawesome.com/42eb2d1675.js" crossorigin="anonymous"></script>
   <script>
-    window.info={
-      name:"UserName"
-    }
 
     function interpolate(start, end, t) {
       return start + (end - start) * t;
@@ -397,12 +394,13 @@
       document.querySelector(".cheatmenu").style.marginLeft=`${interpolate(Number(document.querySelector(".cheatmenu").style.marginLeft.replace("px","")), neded_margin, 0.1)}px`
       const windowWidth = window.innerWidth; // Ширина окна
       const windowHeight = window.innerHeight; // Высота окна
+      var info = JSON.parse(document.body.getAttribute("interSettings"))
       document.querySelector(".screen-so-small").style.display = (windowWidth<=1175 || windowHeight<=600) ? "block" : "none"
-      document.querySelector("#nav-footer-titlebox").innerHTML=document.querySelector("#nav-footer-titlebox").innerHTML.replace("UserName",info.name)
+      document.querySelector("#nav-footer-titlebox").innerHTML=`<a id="nav-footer-title">${info.name}</a><span id="nav-footer-subtitle"></span`
     },10)
   </script>
 </head>
-<body>
+<body interSettings='{"name":"UserName"}'>
 <div class="screen-so-small" style="display: none">
   <h1>Экранчик слишком маленький бро</h1>
 </div>
