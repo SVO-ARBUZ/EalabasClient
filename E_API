@@ -20,3 +20,4 @@ class E_API {
 	}
 
 }
+window.EalabasAPI=new E_API()
