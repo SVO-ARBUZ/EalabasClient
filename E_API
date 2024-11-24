@@ -1,23 +1,25 @@
-class E_API {
+window.initializeAPI = function s(){
+	class E_API {
 
-  constructor() {
-	  this.AlrFreezed=false
-  }
-
-	freeze() {
-		if (!this.AlrFreezed) {
-			this.AlrFreezed=true
-			EalabasFixed.ents.setPosition_o = EalabasFixed.ents.setPosition;
-			EalabasFixed.ents.setPosition = function s(e,r) {
-				if (e!==1) {
-					return EalabasFixed.ents.setPosition_o(e,r)
+		  constructor() {
+			  this.AlrFreezed=false
+		  }
+		
+			freeze() {
+				if (!this.AlrFreezed) {
+					this.AlrFreezed=true
+					EalabasFixed.ents.setPosition_o = EalabasFixed.ents.setPosition;
+					EalabasFixed.ents.setPosition = function s(e,r) {
+						if (e!==1) {
+							return EalabasFixed.ents.setPosition_o(e,r)
+						}
+					}
 				}
 			}
+			unfreeze() {
+				if (this.AlrFreezed) {EalabasFixed.ents.setPosition=EalabasFixed.ents.setPosition_o}
+			}
+		
 		}
-	}
-	unfreeze() {
-		if (this.AlrFreezed) {EalabasFixed.ents.setPosition=EalabasFixed.ents.setPosition_o}
-	}
-
+	window.EalabasAPI=new E_API()
 }
-window.EalabasAPI=new E_API()
